@@ -29,7 +29,7 @@ GPIO.setmode(GPIO.BCM)
 #GPIO pins
 TRIG = 18      # the sensor's TRIG pin
 ECHO = 27      # the sensor's ECHO pin
-SERVO = 16                      # the servo's signal pin
+SERVO = 16     # the servo's signal pin
 
 GPIO.setup(TRIG, GPIO.OUT)      # TRIG is an output
 GPIO.setup(ECHO, GPIO.IN)       # ECHO is an input
