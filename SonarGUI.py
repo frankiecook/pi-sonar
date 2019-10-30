@@ -1,5 +1,3 @@
-# Draw setup
-import turtle as tu
 from math import *
 from random import randint
 
@@ -61,16 +59,53 @@ class CoordinateSystem(Canvas):
   
 # the sensor class
 class Sensor(Frame):
+  # the layout
+  # O O O C
+  # O O O S
+  # O O O Q
+  
   # the constructor
   def __init__(self, parent):
     # call the constructor in the superclass
-    Frame.__init__(self, parent)
+    Frame.__init__(self, parent, bg="white")
+    self.setupGUI()
 
   # sets up the GUI
   def setupGUI(self):
     # organize the GUI
+    self.display = Label(self, text="", anchor=E,\
+                         bg="white", height=2, font=("", 50))
+    self.display.grid(row=0, column=0, columnspan=4, sticky=E+W+N+S)
+
+    for row in range(1):
+      Grid.rowconfigure(self, row, weight=1)
+    for col in range(3):
+      Grid.columnconfigure(self, col, weight=1)
+
+    # calibrate
+    button = Button(self, bg="white", \
+                    borderwidth=0, highlightthickness=0,\
+                    activebackground="white", text="Calibrate")
+    button.grid(row=0, column=0, sticky=N+S+E+W)
+
+    # start
+    button = Button(self, bg="white", \
+                    borderwidth=0, highlightthickness=0,\
+                    activebackground="white", text="Start")
+    button.grid(row=0, column=1, sticky=N+S+E+W)
+
+    # stop
+    button = Button(self, bg="white", \
+                    borderwidth=0, highlightthickness=0,\
+                    activebackground="white", text="Stop")
+    button.grid(row=0, column=2, sticky=N+S+E+W)
+
     self.pack(fill=BOTH, expand=1)
 
+    #sonar = CoordinateSystem(window)
+    
+    
+    '''
     # setup input on the right side of the screen
     Sensor.player_input = Entry(self, bg="white")
     Sensor.player_input.bind("<Return>", self.process)
@@ -85,12 +120,8 @@ class Sensor(Frame):
     Sensor.sonar.pack_propagate(False)
 
     # setup buttons on the right side
+    '''
     
-
-  # start the window
-  def start(self):
-    self.setupGUI()
-
   # process the input
   def process(self, event):
     pass
@@ -108,8 +139,7 @@ window.title("Sonar Sonic Sensor")
 
 # creat the GUI as a Tkinter canvas inside the window
 s = Sensor(window)
-# activate sensor
-s.start()
+c = CoordinateSystem(window)
 
 ####################################
 # rotate the sonar sensor and take distance measurements
@@ -125,7 +155,7 @@ points = [Point(1,5), Point(5,5), Point(55, 55), Point(25, 75)] # example list
 ####################################
   # pass in a list of points
 
-Sensor.sonar.sonar.plotPoints(points)
+c.plotPoints(points)
 
 # wait for the window to close
 window.mainloop()
