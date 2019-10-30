@@ -19,7 +19,8 @@ CALIBRATION_DELAY = 1       # seconds to delay in between calibration measuremen
 TRIGGER_TIME = 0.00001      # seconds needed to trigger the sensor (to get a measurement)
 SPEED_OF_SOUND = 343        # speed of sound in m/s
 ROTATION_ANGLE = 15
-CANVAS_OFFSET = 130
+CANVAS_X_OFFSET = 180
+CANVAS_Y_OFFSET = 130
 
 '''#list
 
@@ -87,9 +88,9 @@ class CoordinateSystem(Canvas):
       self.plotPoint(points[i])
 
   def plotPoint(self, pt):
-    self.create_oval(pt.xcoord + CANVAS_OFFSET, pt.ycoord + CANVAS_OFFSET, (pt.xcoord + CANVAS_OFFSET) + \
+    self.create_oval(pt.xcoord + CANVAS_X_OFFSET, pt.ycoord + CANVAS_Y_OFFSET, (pt.xcoord + CANVAS_X_OFFSET) + \
                      CoordinateSystem.ptRadius * 2, \
-                     (pt.ycoord + CANVAS_OFFSET) + CoordinateSystem.ptRadius * 2, \
+                     (pt.ycoord + CANVAS_Y_OFFSET) + CoordinateSystem.ptRadius * 2, \
                      fill=CoordinateSystem.ptColor, \
                      outline = CoordinateSystem.ptColor)
   
