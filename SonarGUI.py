@@ -144,18 +144,19 @@ c = CoordinateSystem(window)
 ####################################
 # rotate the sonar sensor and take distance measurements
 ####################################
+#spin()
+distances = [ 5, 6, 7, 8, 9, 10, 11, 12 ]
 
 ####################################
 # calculate 2D points with distances
 ####################################
+
 points = [Point(1,5), Point(5,5), Point(55, 55), Point(25, 75)] # example list
 
 ####################################
 # plot 2D points to GUI
 ####################################
   # pass in a list of points
-
-c.plotPoints(points)
 
 # wait for the window to close
 window.mainloop()
