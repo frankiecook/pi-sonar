@@ -35,6 +35,14 @@ GPIO.setup(TRIG, GPIO.OUT)      # TRIG is an output
 GPIO.setup(ECHO, GPIO.IN)       # ECHO is an input
 GPIO.setup(SERVO, GPIO.OUT)     # SERVO is an output
 
+servo = GPIO.PWM(SERVO, 50) # assign pwm to variable at 50Hz
+
+# spin the sensor for time seconds
+def spin(time):
+    servo.start(7.5)
+    time.sleep(time)
+    p.stop()
+
 # calibrates the sensor
 # tehnically, it returns a correction factor to use in our calculations
 
