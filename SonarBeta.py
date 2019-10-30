@@ -19,6 +19,7 @@ CALIBRATION_DELAY = 1       # seconds to delay in between calibration measuremen
 TRIGGER_TIME = 0.00001      # seconds needed to trigger the sensor (to get a measurement)
 SPEED_OF_SOUND = 343        # speed of sound in m/s
 ROTATION_ANGLE = 15
+CANVAS_OFFSET = 130
 
 '''#list
 
@@ -86,9 +87,9 @@ class CoordinateSystem(Canvas):
       self.plotPoint(points[i])
 
   def plotPoint(self, pt):
-    self.create_oval(pt.x, pt.y, pt.x + \
+    self.create_oval(pt.xcoord + CANVAS_OFFSET, pt.ycoord + CANVAS_OFFSET, (pt.xcoord + CANVAS_OFFSET) + \
                      CoordinateSystem.ptRadius * 2, \
-                     pt.y + CoordinateSystem.ptRadius * 2, \
+                     (pt.ycoord + CANVAS_OFFSET) + CoordinateSystem.ptRadius * 2, \
                      fill=CoordinateSystem.ptColor, \
                      outline = CoordinateSystem.ptColor)
   
@@ -313,8 +314,15 @@ c = CoordinateSystem(window)
 # rotate the sonar sensor and take distance measurements
 ####################################
 #spin()
-distances = [ 5, 6, 7, 8, 9, 10, 11, 12 ]
-angles = [2, 4, 6, 8, 10, 12, 14, 16]
+distances = []
+angles = []
+for i in range (2, 82):
+    distances.append(i)
+    i += 2
+
+for i in range(len(distances)):
+    angles.append(i*9)
+#angles = [2, 4, 6, 8, 10, 12, 14, 16]
 points = []
 
 ####################################
@@ -329,7 +337,7 @@ for i in range(len(distances)):# example list
 ####################################
   # pass in a list of points
 
-c.plotsPoints(points)
+c.plotPoints(points)
 
 # wait for the window to close
 window.mainloop()
