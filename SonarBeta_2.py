@@ -23,6 +23,7 @@ points = []
 rotation_counter = 0
 angle = 0
 scale = 4
+correction_factor = 1
 
 #set the RPi to the Broadcom pin layout
 GPIO.setmode(GPIO.BCM)
@@ -75,7 +76,7 @@ def calibrate():
     known_distance = input("-What is the measured distance (cm)?")
     distance_avg = 0
     for i in range(CALIBRATIONS) :
-        distance= getDistance()
+        distance = getDistance()
         if (DEBUG):
             print "--Got {}cm".format(distance)
         #  keep a running sum
@@ -128,7 +129,6 @@ def getDistance():
 def spin():
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(16, GPIO.OUT)
-    
     p = GPIO.PWM(16,50)
     p.start(7.5)
     sleep(.25)
@@ -157,7 +157,7 @@ def start_button():
     echo()
     
 def calibrate_button():
-    calibrate()
+    correction_factor = calibrate()
     
 def stop_button():
     pass
