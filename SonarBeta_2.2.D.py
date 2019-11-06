@@ -151,6 +151,7 @@ def echo():
   # executes i times in order to create a closed shape
   for i in range(0, 360/ROTATION_ANGLE):
     if (global_stop == True):
+      points.clear()
       break
     distance = getDistance() * correction_factor        # calculates accurate distance
     angle = ROTATION_ANGLE * rotation_counter           # calculates accurate angle
@@ -167,7 +168,8 @@ def echo():
                 points[i-1].ycoord + CANVAS_Y_OFFSET, \
                 points[i].xcoord + CANVAS_X_OFFSET, \
                 points[i].ycoord + CANVAS_Y_OFFSET, fill="black")
-  grid.create_line(points[0].xcoord + CANVAS_X_OFFSET, \
+  if (global_stop == False):
+    grid.create_line(points[0].xcoord + CANVAS_X_OFFSET, \
                 points[0].ycoord + CANVAS_Y_OFFSET, \
                 points[-1].xcoord + CANVAS_X_OFFSET, \
                 points[-1].ycoord + CANVAS_Y_OFFSET, fill="black")
