@@ -3,10 +3,30 @@ from time import sleep, time
 from Tkinter import *
 import math
 
-
+HEIGHT = 600                # height omf the window
+WIDTH = 800                 # width of the window
+SETTLE_TIME = 2             # seconds to let the sensor settle
+CALIBRATIONS = 5            # number of calibration measurements to take
+CALIBRATION_DELAY = 1       # seconds to delay in between calibration measurements
+TRIGGER_TIME = 0.00001      # seconds needed to trigger the sensor (to get a measurement)
+SPEED_OF_SOUND = 343        # speed of sound in m/s
+ROTATION_ANGLE = 15         # angle the sensor rotates every cycle
+CANVAS_X_OFFSET = 315       # centers the x coordinate of the measured point
+CANVAS_Y_OFFSET = 215       # centers the y coordinate of the measured point
+DEBUG = True
 TRIG = 18      # the sensor's TRIG pin
 ECHO = 27      # the sensor's ECHO pin
 SERVO = 16
+
+ptRadius = 1                # radius of the plotted point
+distances = []              # list of measured distances
+points = []                 # list of calculated points to plot
+rotation_counter = 0        # counter of measurement cycles
+correction_factor = 0       # correction factor of USS
+angle = 0                   # initializes value of angle to be assigned later
+scale = 4                   # functions as a zoom in order to make the plotted points and shape more visible
+global_stop = False         # stop globally
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(TRIG, GPIO.OUT)      # TRIG is an output
 GPIO.setup(ECHO, GPIO.IN)       # ECHO is an input
@@ -61,7 +81,7 @@ def calibrate():                    # calibrates the USS in order to gather accu
     known_distance = 20
     distance_avg = 0
     for i in range(CALIBRATIONS) :  # gathers series of distances in order to calulate variance
-        distance= getDistance()
+        distance = getDistance()
         if (DEBUG):
             print "--Got {}cm".format(distance)
         #  keep a running sum
@@ -104,14 +124,14 @@ def getDistance():                  # uses the sensor to calculate the distance 
     return distance
 
 def spin():                 # tells the servo to spin
-    p = GPIO.PWM(16,50)     # assigns GPIO output of pins for servo
+    p = GPIO.PWM(SERVO,50)     # assigns GPIO output of pins for servo
     # creates duty cycle for the servo
     p.start(7.5)
-    sleep(.25)
+    sleep(.0435)
     # measures distance
     distances.append(getDistance()) ##maybe not needed?? ##
     p.stop()
-    GPIO.cleanup()
+    #GPIO.cleanup()
 
 def echo():
   rotation_counter = 0 ## maybe not needed?? ##
