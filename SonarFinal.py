@@ -1,8 +1,16 @@
+###########################################################################################
+# Name: James R. Henry, Kenneth Duncan, Norman Cook
+# Date: 11/07/2019
+# Description: A program that utilized lessons learned in the LwC series to implenent a 
+#               a room mapping sonar device.
+###########################################################################################
+
 import RPi.GPIO as GPIO
 from time import sleep, time
 from Tkinter import *
 import math
 
+# constants
 HEIGHT = 600
 WIDTH = 800
 SETTLE_TIME = 2
@@ -14,7 +22,11 @@ CANVAS_X_OFFSET = 315
 CANVAS_Y_OFFSET = 215
 ROTATION_ANGLE = 1
 DEBUG = False
+TRIG = 18      # the sensor's TRIG pin
+ECHO = 27      # the sensor's ECHO pin
+SERVO = 16
 
+# variables
 ptRadius = 1
 distance = []
 points = []
@@ -24,9 +36,7 @@ angle = 0
 scale = 4
 global_stop = False
 
-TRIG = 18      # the sensor's TRIG pin
-ECHO = 27      # the sensor's ECHO pin
-SERVO = 16
+# GPIO setup
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(TRIG, GPIO.OUT)      # TRIG is an output
 GPIO.setup(ECHO, GPIO.IN)       # ECHO is an input
